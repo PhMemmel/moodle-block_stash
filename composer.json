@@ -1,0 +1,10 @@
+{
+    "name": "moodle-block_stash",
+    "type": "moodle-block",
+    "extra": {
+        "installer-name": "stash"
+    },
+    "requires": {
+        "moodle/composer-installer": "^1"
+    }
+}
