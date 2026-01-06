@@ -4,7 +4,7 @@
     "extra": {
         "installer-name": "stash"
     },
-    "requires": {
+    "require": {
         "moodle/composer-installer": "^1"
     }
 }
