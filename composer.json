@@ -1,5 +1,5 @@
 {
-    "name": "moodle-block_stash",
+    "name": "abgreeve/moodle-block_stash",
     "type": "moodle-block",
     "extra": {
         "installer-name": "stash"
