@@ -252,3 +252,9 @@
     color: black !important;
     top: unset !important;
 }
+
+.path-blocks-stash .search-widget .dropdown-menu .searchresultscontainer {
+    max-height: 18rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

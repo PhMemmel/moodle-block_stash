@@ -93,7 +93,7 @@ class userlist extends external_api {
                 'id' => $user->id,
                 'fullname' => fullname($user),
                 'url' => $url->out(false),
-                'active' => true
+                'active' => false
             ];
         }
 
