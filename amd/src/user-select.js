@@ -22,7 +22,6 @@
 
 import Pending from 'core/pending';
 import * as Templates from 'core/templates';
-import $ from 'jquery';
 import ajax from 'core/ajax';
 
 const SEARCH_WIDGET_SELECTOR = '.search-widget[data-searchtype="block_stash-user"]';
@@ -52,31 +51,32 @@ export const init = () => {
  * Register search widget related event listeners.
  */
 const registerListenerEvents = () => {
-    $(SEARCH_WIDGET_SELECTOR).on('show.bs.dropdown', async(e) => {
-        const widget = e.currentTarget;
-        const dropdownMenuContainer = widget.querySelector('.dropdown-menu');
-        const toggle = e.relatedTarget || widget.querySelector('[data-bs-toggle="dropdown"]');
-        const courseID = toggle?.dataset?.courseid;
+    document.querySelectorAll(SEARCH_WIDGET_SELECTOR).forEach((widget) => {
+        widget.addEventListener('show.bs.dropdown', async(e) => {
+            const dropdownMenuContainer = widget.querySelector('.dropdown-menu');
+            const toggle = e.relatedTarget || widget.querySelector('[data-bs-toggle="dropdown"]');
+            const courseID = toggle?.dataset?.courseid;
 
-        if (!dropdownMenuContainer || !courseID) {
-            return;
-        }
+            if (!dropdownMenuContainer || !courseID) {
+                return;
+            }
 
-        renderLoadingState(dropdownMenuContainer);
+            renderLoadingState(dropdownMenuContainer);
 
-        try {
-            const data = await swapUserFetch(courseID);
-            await renderSearchWidget(dropdownMenuContainer, data.users || []);
-        } catch (error) {
-            renderErrorState(dropdownMenuContainer, error?.message || DEFAULT_ERROR_MESSAGE);
-        }
-    });
+            try {
+                const data = await swapUserFetch(courseID);
+                await renderSearchWidget(dropdownMenuContainer, data.users || []);
+            } catch (error) {
+                renderErrorState(dropdownMenuContainer, error?.message || DEFAULT_ERROR_MESSAGE);
+            }
+        });
 
-    $(SEARCH_WIDGET_SELECTOR).on('hide.bs.dropdown', (e) => {
-        const dropdownMenuContainer = e.currentTarget.querySelector('.dropdown-menu');
-        if (dropdownMenuContainer) {
-            dropdownMenuContainer.innerHTML = '';
-        }
+        widget.addEventListener('hide.bs.dropdown', () => {
+            const dropdownMenuContainer = widget.querySelector('.dropdown-menu');
+            if (dropdownMenuContainer) {
+                dropdownMenuContainer.innerHTML = '';
+            }
+        });
     });
 };
 
